@@ -1,36 +1,13 @@
-# Procédure d'installation de Tyk sur 2 machines
-
-## Description de l'environnement
-- Tyk\-Dashboard
-- Tyk\-Gateway
-- Tyk\-Pump
-- Redis
-- MongoDb
-
-## Description de l'architecture :
-- Dashboard : Dashboard + MongoDB + Pump
-- Gateway : Gateway + Redis
-
-## Adresse IP et DNS :
-Environnement | IP | DNS
-----------| -----------|----------------
-Dashboard | 51.75.196.202 | tyk-dashboard 
-Gateway | 51.77.108.198  | tyk-gateway 
-
-## Documentation Officielle :
-- https://tyk.io/docs/get-started/with-tyk-on-premise/installation/redhat-rhel-centos/
-
-## Installation et configuration des serveurs
-### Installer le serveur Dashboard
-#### Configurer le serveur
-##### Ouverture du port 3000 - Nécessaire à l'accès au serveur Web
+# Installer le serveur Dashboard
+## Configurer le serveur
+### Ouverture du port 3000 - Nécessaire à l'accès au serveur Web
 Attention, ici nous ajoutons l'ouverture à la Zone Public ( représente l’ensemble des réseaux publics ou non sécurisés. On ne fait pas confiance aux autres ordinateurs ou serveurs mais, on peut traiter les connexions entrantes au cas par cas à l’aide de règles. )
 
 ```{.copyWrapper}
 firewall-cmd --zone=public --add-port=3000/tcp 
 ```
 
-##### Besoin de gérer les DNS localement en éditant le fichier /etc/hosts
+### Besoin de gérer les DNS localement en éditant le fichier /etc/hosts
 Afin de pouvoir respecter les bonnes pratiques, il vaut mieux utiliser les DNS que les adresses IP. 
 Pour ce faire, sur l'environnement de développement , nous allons donc mapper les deux serveurs localement, avec une DNS dans le fichier /etc/hosts
 
@@ -47,24 +24,24 @@ Voici un exemple du fichier hosts configuré pour l'exemple.
 ![Hosts file](2019-03-22_13h45_37.png)
 
 
-#### Installation des packages nécessaires
-##### Python
+## Installation des packages nécessaires
+### Python
 ```{.copyWrapper}
 sudo yum install python34
 ```
 
-##### Set up YUM Repositories
-###### STEP 1 : we need to install some software that allows us to use signed packages:
+### Set up YUM Repositories pour installation de Tyk
+#### STEP 1 : we need to install some software that allows us to use signed packages:
 ```{.copyWrapper}
 sudo yum install pygpgme yum-utils wget
 ```
 
-###### STEP 2 : we need to configure repository configurations for Tyk Dashboard
+#### STEP 2 : we need to configure repository configurations for Tyk Dashboard
 ```{.copyWrapper}
 sudo vi /etc/yum.repos.d/tyk_tyk-dashboard.repo
 ```
 
-###### STEP 3 : Copier la configuration suivante dans le fichier 
+#### STEP 3 : Copier la configuration suivante dans le fichier 
 ```{.copyWrapper}
 [tyk_tyk-dashboard]
 name=tyk_tyk-dashboard
@@ -85,12 +62,12 @@ metadata_expire=300
 > * Pour passer en mode commande, appuyer sur échappement. 
 > * Pour sauvegarder et quitter le fichier, mode commande : ***:wq!*** 
 
-###### STEP 4 : we need to configure repository configurations for MongoDB
+#### STEP 4 : we need to configure repository configurations for MongoDB
 ```{.copyWrapper}
 sudo vi /etc/yum.repos.d/mongodb-org-3.0.repo
 ```
 
-###### STEP 5 : Copier la configuration suivante dans le fichier
+#### STEP 5 : Copier la configuration suivante dans le fichier
 ```{.copyWrapper}
 [mongodb-org-3.0]
 name=MongoDB Repository
@@ -99,17 +76,17 @@ gpgcheck=0
 enabled=1
 ```
 
-###### FINAL STEP : Raffraichir le cache local
+#### FINAL STEP : Raffraichir le cache local
 ```{.copyWrapper}
 sudo yum -q makecache -y --disablerepo='*' --enablerepo='tyk_tyk-dashboard'
 ```
 
-##### Install Packages
+### Install Packages
 Maintenant que les repositories sont configuré, on peut lancer l'installation des packages
 ```{.copyWrapper}
 sudo yum install -y mongodb-org tyk-dashboard redis
 ```
-##### Start MongoDB and Redis
+## Start MongoDB and Redis
 
 Au cas où les services ne sont pas démarrés.
 
@@ -118,7 +95,7 @@ sudo service mongod start
 sudo service redis start
 ```
 
-##### Configurer Tyk Dashboard
+## Configurer Tyk Dashboard
 
 > **NOTE**: 
 > You need to replace `<hostname>` for `--redishost=<hostname>`
@@ -152,13 +129,13 @@ What we have done here is:
 *   `--tyk_node_port=8080`: Tell the Dashboard that the Tyk node it should communicate with is on port 8080.
 *   `--portal_root=/portal`: We want the Portal to be shown on /portal of whichever domain we set for the Portal.
 
-##### Démarrer Tyk Dashboard
+## Démarrer Tyk Dashboard
 
 ```{.copyWrapper}
 sudo service tyk-dashboard start
 ```
 
-##### Ajouter la licence dans le fichier de configuration du Dashboard & relancer le service
+## Ajouter la licence dans le fichier de configuration du Dashboard & relancer le service
 
 ```{.copyWrapper}
 sudo vi /opt/tyk-dashboard/tyk_analytics.conf
