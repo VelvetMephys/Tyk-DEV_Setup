@@ -1,4 +1,4 @@
-# Documentation d'installation d'un Middleware Tyk sur 2 machines
+# Procédure d'installation de Tyk sur 2 machines
 
 ## Description de l'environnement
 - Tyk\-Dashboard
