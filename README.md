@@ -17,13 +17,17 @@
 ## Installation et configuration des serveurs
 ### Installer le serveur Dashboard
 #### Configurer le serveur
-    * Ouverture du port 3000
-     
-     ```firewall-cmd --zone=public --add-port=2888/tcp ```
+##### Ouverture du port 3000 - Nécessaire à l'accès au serveur Web
+Attention, ici nous ajoutons l'ouverture à la Zone Public ( représente l’ensemble des réseaux publics ou non sécurisés. On ne fait pas confiance aux autres ordinateurs ou serveurs mais, on peut traiter les connexions entrantes au cas par cas à l’aide de règles. )
 
-    * Installation des repository Tyk pour installation
-    
+```{.copyWrapper}
+firewall-cmd --zone=public --add-port=3000/tcp 
+```
 
+##### Installation des packages nécessaires
+```{.copyWrapper}
+sudo yum install python34
+```
 
 #### Installer le serveur Gateway
 
