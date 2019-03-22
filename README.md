@@ -127,8 +127,15 @@ sudo service redis start
 > You need to replace XXX.XXX.XXX.XXX for `--domain="XXX.XXX.XXX.XXX"` 
 > with your own values to run this script.
 
+
+__*Exemple Générique*__
 ```{.copyWrapper}
 sudo /opt/tyk-dashboard/install/setup.sh --listenport=3000 --redishost=<hostname> --redisport=6379 --mongo=mongodb://<IP Address>/tyk_analytics --tyk_api_hostname=$HOSTNAME --tyk_node_hostname=http://<host_tyk_node> --tyk_node_port=8080 --portal_root=/portal --domain="XXX.XXX.XXX.XXX"
+```
+
+__*Soit pour notre déploiement*__
+```{.copyWrapper}
+sudo /opt/tyk-dashboard/install/setup.sh  --listenport=3000 --redishost=tyk-gateway --redisport=6379 --mongo=mongodb://localhost/tyk_analytics --tyk_api_hostname=tyk-dashboard --tyk_node_hostname=http://51.77.108.198 --tyk_node_port=8080 --portal_root=/portal --domain="51.75.196.202" 
 ```
 
 > **Note**: Make sure to use the ***actual DNS hostname*** or the public IP of your instance as the last parameter.
@@ -145,7 +152,23 @@ What we have done here is:
 *   `--tyk_node_port=8080`: Tell the Dashboard that the Tyk node it should communicate with is on port 8080.
 *   `--portal_root=/portal`: We want the Portal to be shown on /portal of whichever domain we set for the Portal.
 
+##### Démarrer Tyk Dashboard
 
+```{.copyWrapper}
+sudo service tyk-dashboard start
+```
+
+##### Ajouter la licence dans le fichier de configuration du Dashboard & relancer le service
+
+```{.copyWrapper}
+sudo vi /opt/tyk-dashboard/tyk_analytics.conf
+```
+
+Rechercher le champ **"license_key": ""** et insérer la clef entre les 2 guillemens
+
+```{.copyWrapper}
+restart tyk-dashboard.service
+```
 
 ### Installer le serveur Gateway
 
