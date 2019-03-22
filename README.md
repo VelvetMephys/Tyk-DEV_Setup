@@ -43,6 +43,9 @@ Ajouter les lignes mappant IPs et DNS, soit ici :
 51.77.108.198   tyk-gateway
 ```
 
+```
+![Hosts file](/documentation/2019-03-22_13h45_37.png)
+```      
 
 
 #### Installation des packages nécessaires
