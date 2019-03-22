@@ -15,17 +15,17 @@
 - https://tyk.io/docs/get-started/with-tyk-on-premise/installation/redhat-rhel-centos/
 
 ## Installation et configuration des serveurs
-1. Installer le serveur Dashboard
-  1. Configurer le serveur
-    1. Ouverture des ports
-      * Ouverture du port 3000
-      ```firewall-cmd --zone=public --add-port=2888/tcp ```
-    
-    2. Installation des repository Tyk pour installation
+### Installer le serveur Dashboard
+#### Configurer le serveur
+    * Ouverture du port 3000
+     
+     ```firewall-cmd --zone=public --add-port=2888/tcp ```
+
+    * Installation des repository Tyk pour installation
     
 
 
-2. Installer le serveur Gateway
+#### Installer le serveur Gateway
 
 
 
