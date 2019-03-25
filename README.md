@@ -20,5 +20,5 @@ Gateway | 51.77.108.198  | tyk-gateway
 ## Documentation Officielle :
 - https://tyk.io/docs/get-started/with-tyk-on-premise/installation/redhat-rhel-centos/
 
-[serveur_Dashboard]: https://github.com/VelvetMephys/documentation/blob/master/INSTALLATION.md "guide d'installation du serveur Dashboard"
-[serveur_Gateway]: https://github.com/VelvetMephys/documentation/blob/master/INSTALLATION.md "Guide d'installation du serveur Gateway"
+[serveur_Dashboard]: https://github.com/VelvetMephys/documentation/blob/master/INSTALLATION__DASHBOARD.md "guide d'installation du serveur Dashboard"
+[serveur_Gateway]: https://github.com/VelvetMephys/documentation/blob/master/INSTALLATION__GATEWAY.md "Guide d'installation du serveur Gateway"
