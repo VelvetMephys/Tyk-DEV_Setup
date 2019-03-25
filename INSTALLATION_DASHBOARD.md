@@ -1,6 +1,6 @@
 # Installer le serveur Dashboard
 ## Configurer le serveur
-### Ouverture du port 3000 - Nécessaire à l'accès au serveur Web
+### _Port 3000 - Accès au serveur Web_
 Attention, ici nous ajoutons l'ouverture à la Zone Public ( représente l’ensemble des réseaux publics ou non sécurisés. On ne fait pas confiance aux autres ordinateurs ou serveurs mais, on peut traiter les connexions entrantes au cas par cas à l’aide de règles. )
 
 ```{.copyWrapper}
