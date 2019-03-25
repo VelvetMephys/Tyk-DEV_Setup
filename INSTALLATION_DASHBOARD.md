@@ -98,12 +98,12 @@ sudo service redis start
 ## Configurer Tyk Dashboard
 
 > **NOTE**: 
-> You need to replace `<hostname>` by the Gateway IP/Hostname for `--redishost=<hostname>`
-> You need to replace `<IP Address>` by localhost for `--mongo=mongodb://<IP Address>/` 
-> You need to replace `<host_tyk_node>` by the public IP/Hostname of the Gateway server for `tyk_node_hostname=http://<host_tyk_node>` 
-> You need to replace XXX.XXX.XXX.XXX by the domain/ip of the Dashboard server for `--domain="XXX.XXX.XXX.XXX"` 
-> with your own values to run this script.
-
+> * You need to replace `<hostname>` by the Gateway IP/Hostname for `--redishost=<hostname>`
+> * You need to replace `<IP Address>` by localhost for `--mongo=mongodb://<IP Address>/` 
+> * You need to replace `<host_tyk_node>` by the public IP/Hostname of the Gateway server for `tyk_node_hostname=http://<host_tyk_node>` 
+> * You need to replace XXX.XXX.XXX.XXX by the domain/ip of the Dashboard server for `--domain="XXX.XXX.XXX.XXX"` 
+> 
+> _with your own values to run this script._
 
 __*Exemple Générique*__
 ```{.copyWrapper}
