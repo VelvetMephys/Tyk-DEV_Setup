@@ -1,7 +1,7 @@
 # Installer le serveur Gateway
 ## Ouverture des ports nécessaires au service
-### Port 8080 - Nécessaire au transport des API
-### Port 6379 - Nécessaire pour l'interface Redis
+#### _Port 8080 - Transport des API_
+#### _Port 6379 - Interface Redis_
 Attention, ici nous ajoutons l'ouverture à la Zone Public ( représente l’ensemble des réseaux publics ou non sécurisés. On ne fait pas confiance aux autres ordinateurs ou serveurs mais, on peut traiter les connexions entrantes au cas par cas à l’aide de règles. )
 
 ```{.copyWrapper}
@@ -9,7 +9,7 @@ sudo firewall-cmd --zone=public --add-port=8080/tcp
 sudo firewall-cmd --zone=public --add-port=6379/tcp
 ```
 
-### Set up YUM Repositories
+## Set up YUM Repositories
 #### STEP 1 : we need to install some software that allows us to use signed packages:
 ```{.copyWrapper}
 sudo yum install pygpgme yum-utils wget
@@ -46,13 +46,13 @@ sudo yum update
 sudo yum -q makecache -y --disablerepo='*' --enablerepo='tyk_tyk-gateway' --enablerepo=epel
 ```
 
-#### STEP 6 : Installation de Redis et du Gateway
+## Installation des différents éléments
+#### STEP 1 : Installation de Redis et du Gateway
 ```{.copyWrapper}
 sudo yum install -y redis tyk-gateway
 ```
 
-
-#### STEP 7 : Configuration de Redis
+#### STEP 2 : Configuration de Redis
 ##### Ouvrir le flux entrant à partir du Dashboard
 ```{.copyWrapper}
 sudo vi /etc/redis.conf
