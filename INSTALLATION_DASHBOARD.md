@@ -129,6 +129,7 @@ What we have done here is:
 *   `--tyk_node_port=8080`: Tell the Dashboard that the Tyk node it should communicate with is on port 8080.
 *   `--portal_root=/portal`: We want the Portal to be shown on /portal of whichever domain we set for the Portal.
 
+
 ## Démarrer Tyk Dashboard
 
 ```{.copyWrapper}
@@ -147,3 +148,8 @@ Rechercher le champ **"license_key": ""** et insérer la clef entre les 2 guille
 restart tyk-dashboard.service
 ```
 
+## Effectuer l'installation du Gateway
+Suivre la procédure ici : [Serveur_Gateway]
+
+
+[serveur_Gateway]: https://github.com/VelvetMephys/documentation/blob/master/INSTALLATION_GATEWAY.md "Guide d'installation du serveur Gateway"
