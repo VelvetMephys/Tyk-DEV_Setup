@@ -77,5 +77,7 @@ sudo vi /etc/redis.conf
 Commenter la partie : bind tel que sur la capture d'écran ci-dessous
 
 ##### Vérifier/modifier les droits des répertoires Redis
+```{.copyWrapper}
 sudo chmod 755 /var/lib/redis
 sudo chmod 644 /var/lib/redis/dump.rdb
+```
