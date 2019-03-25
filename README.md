@@ -1,4 +1,4 @@
-# Procédure d'installation de Tyk sur 2 machines
+# Environnemnent de développement Tyk sur 2 machines
 
 ## Description de l'environnement
 - Tyk\-Dashboard
