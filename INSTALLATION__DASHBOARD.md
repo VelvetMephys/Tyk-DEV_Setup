@@ -82,9 +82,9 @@ sudo yum -q makecache -y --disablerepo='*' --enablerepo='tyk_tyk-dashboard'
 ```
 
 ### Install Packages
-Maintenant que les repositories sont configuré, on peut lancer l'installation des packages
+Maintenant que les repositories sont configurés, on peut lancer l'installation des packages
 ```{.copyWrapper}
-sudo yum install -y mongodb-org tyk-dashboard redis
+sudo yum install -y mongodb-org tyk-dashboard
 ```
 ## Start MongoDB and Redis
 
@@ -98,10 +98,10 @@ sudo service redis start
 ## Configurer Tyk Dashboard
 
 > **NOTE**: 
-> You need to replace `<hostname>` for `--redishost=<hostname>`
-> You need to replace `<IP Address>` for `--mongo=mongodb://<IP Address>/` 
-> You need to replace `<host_tyk_node>` for `--mongo=mongodb://<IP Address>/` 
-> You need to replace XXX.XXX.XXX.XXX for `--domain="XXX.XXX.XXX.XXX"` 
+> You need to replace `<hostname>` by the Gateway IP/Hostname for `--redishost=<hostname>`
+> You need to replace `<IP Address>` by localhost for `--mongo=mongodb://<IP Address>/` 
+> You need to replace `<host_tyk_node>` by the public IP/Hostname of the Gateway server for `tyk_node_hostname=http://<host_tyk_node>` 
+> You need to replace XXX.XXX.XXX.XXX by the domain/ip of the Dashboard server for `--domain="XXX.XXX.XXX.XXX"` 
 > with your own values to run this script.
 
 
@@ -120,12 +120,12 @@ sudo /opt/tyk-dashboard/install/setup.sh  --listenport=3000 --redishost=tyk-gate
 What we have done here is:
 
 *   `--listenport=3000`: Told Tyk Dashboard (and Portal) to listen on port 3000.
-*   `--redishost=<hostname>`: Tyk Dashboard should use the local Redis instance.
+*   `--redishost=<hostname>`: Tyk Dashboard should use the gateway Redis instance : *tyk-gateway*
 *   `--redisport=6379`: The Tyk Dashboard should use the default port.
-*   `--domain="XXX.XXX.XXX.XXX"`: Bind the Dashboard to the IP or DNS hostname of this instance (required).
-*   `--mongo=mongodb://<IP Address>/tyk_analytics`: Use the local MongoDB (should always be the same as the Gateway).
-*   `--tyk_api_hostname=$HOSTNAME`: The Tyk Dashboard has no idea what hostname has been given to Tyk, so we need to tell it, in this instance we are just using the local HOSTNAME env variable, but you could set this to the public-hostname/IP of the instance.
-*   `--tyk_node_hostname=http://localhost`: The Tyk Dashboard needs to see a Tyk node in order to create new tokens, so we need to tell it where we can find one.
+*   `--domain="XXX.XXX.XXX.XXX"`: Bind the Dashboard to the IP or DNS hostname of this instance (required). *51.75.196.202*
+*   `--mongo=mongodb://<IP Address>/tyk_analytics`: Use the local MongoDB (should always be the same as the Gateway). *localhost*
+*   `--tyk_api_hostname=$HOSTNAME`: The Tyk Dashboard has no idea what hostname has been given to Tyk, so we need to tell it, in this instance we are just using the local HOSTNAME env variable, but you could set this to the public-hostname/IP of the instance. *tyk-dashboard*
+*   `--tyk_node_hostname=http://<host_tyk_node>`: The Tyk Dashboard needs to see a Tyk node in order to create new tokens, so we need to tell it where we can find one. 
 *   `--tyk_node_port=8080`: Tell the Dashboard that the Tyk node it should communicate with is on port 8080.
 *   `--portal_root=/portal`: We want the Portal to be shown on /portal of whichever domain we set for the Portal.
 
@@ -147,70 +147,3 @@ Rechercher le champ **"license_key": ""** et insérer la clef entre les 2 guille
 restart tyk-dashboard.service
 ```
 
-### Installer le serveur Gateway
-
-##### Ouverture du port 8080 - Nécessaire au transport des API
-Attention, ici nous ajoutons l'ouverture à la Zone Public ( représente l’ensemble des réseaux publics ou non sécurisés. On ne fait pas confiance aux autres ordinateurs ou serveurs mais, on peut traiter les connexions entrantes au cas par cas à l’aide de règles. )
-
-```{.copyWrapper}
-sudo firewall-cmd --zone=public --add-port=8080/tcp
-```
-##### Ouverture du port 6379 - Nécessaire pour l'interface Redis
-Attention, ici nous ajoutons l'ouverture à la Zone Public ( représente l’ensemble des réseaux publics ou non sécurisés. On ne fait pas confiance aux autres ordinateurs ou serveurs mais, on peut traiter les connexions entrantes au cas par cas à l’aide de règles. )
-
-```{.copyWrapper}
-sudo firewall-cmd --zone=public --add-port=6379/tcp
-```
-
-##### Set up YUM Repositories
-###### STEP 1 : we need to install some software that allows us to use signed packages:
-```{.copyWrapper}
-sudo yum install pygpgme yum-utils wget
-```
-
-###### STEP 2 : we need to configure repository configurations for Tyk Dashboard
-```{.copyWrapper}
-sudo vi /etc/yum.repos.d/tyk_tyk-gateway.repo
-```
-
-###### STEP 3 : Copier la configuration suivante dans le fichier 
-```{.copyWrapper}
-[tyk_tyk-gateway]
-name=tyk_tyk-gateway
-baseurl=https://packagecloud.io/tyk/tyk-gateway/el/7/$basearch
-repo_gpgcheck=1
-gpgcheck=1
-enabled=1
-gpgkey=http://keyserver.tyk.io/tyk.io.rpm.signing.key
-       https://packagecloud.io/tyk/tyk-gateway/gpgkey
-sslverify=1
-sslcacert=/etc/pki/tls/certs/ca-bundle.crt
-metadata_expire=300
-```
-
-###### STEP 4 : Installer EPEL pour enrichir les repositories 
-```{.copyWrapper}
-sudo yum install -y epel-release
-sudo yum update
-```
-
-###### STEP 5 : Mettre le cache a jour
-```{.copyWrapper}
-sudo yum -q makecache -y --disablerepo='*' --enablerepo='tyk_tyk-gateway' --enablerepo=epel
-```
-
-
-###### STEP 6 : Installation de Redis et du Gateway
-```{.copyWrapper}
-sudo yum install -y redis tyk-gateway
-```
-
-
-
-###### STEP 6 : Configuration de Redis
-####### Ouvrir le flux entrant à partir du Dashboard
-```{.copyWrapper}
-sudo vi /etc/redis.conf
-```
-
-Commenter la partie : bind tel que sur la capture d'écran ci-dessous
