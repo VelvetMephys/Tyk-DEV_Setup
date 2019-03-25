@@ -8,6 +8,22 @@ Attention, ici nous ajoutons l'ouverture à la Zone Public ( représente l’ens
 sudo firewall-cmd --zone=public --add-port=8080/tcp
 sudo firewall-cmd --zone=public --add-port=6379/tcp
 ```
+## Besoin de gérer les DNS localement en éditant le fichier /etc/hosts
+Afin de pouvoir respecter les bonnes pratiques, il vaut mieux utiliser les DNS que les adresses IP. 
+Pour ce faire, sur l'environnement de développement , nous allons donc mapper les deux serveurs localement, avec une DNS dans le fichier /etc/hosts
+
+```{.copyWrapper}
+sudo vi /etc/hosts
+```
+Ajouter les lignes mappant IPs et DNS, soit ici : 
+```{.copyWrapper}
+51.75.196.202   tyk-dashboard
+51.77.108.198   tyk-gateway
+```
+
+Voici un exemple du fichier hosts configuré pour l'exemple.
+![Hosts file](2019-03-22_13h45_37.png)
+
 
 ## Set up YUM Repositories
 #### STEP 1 : we need to install some software that allows us to use signed packages:
