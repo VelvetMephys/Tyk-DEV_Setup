@@ -1,13 +1,13 @@
 # Installer le serveur Dashboard
 ## Configurer le serveur
-### _Port 3000 - Accès au serveur Web_
+#### _Port 3000 - Accès au serveur Web_
 Attention, ici nous ajoutons l'ouverture à la Zone Public ( représente l’ensemble des réseaux publics ou non sécurisés. On ne fait pas confiance aux autres ordinateurs ou serveurs mais, on peut traiter les connexions entrantes au cas par cas à l’aide de règles. )
 
 ```{.copyWrapper}
 firewall-cmd --zone=public --add-port=3000/tcp 
 ```
 
-### Besoin de gérer les DNS localement en éditant le fichier /etc/hosts
+## Besoin de gérer les DNS localement en éditant le fichier /etc/hosts
 Afin de pouvoir respecter les bonnes pratiques, il vaut mieux utiliser les DNS que les adresses IP. 
 Pour ce faire, sur l'environnement de développement , nous allons donc mapper les deux serveurs localement, avec une DNS dans le fichier /etc/hosts
 
